@@ -3,6 +3,8 @@ import webbrowser
 import pyttsx3
 import musicLibrary
 import requests
+import pyaudio
+from google import genai
 
 
 recognizer = sr.Recognizer()
@@ -12,6 +14,12 @@ newsapi = "a62e6d323b0f4708abfcb67798c89a79"
 def speak(text):
     engine.say(text)
     engine.runAndWait()
+
+def aiProcess(command):
+    client = genai.Client(api_key="AIzaSyAnXX_6HHbgS8DLqDyPjCpuMZGq0ww6J2M")
+    response = client.models.generate_content(
+    model="gemini-2.5-flash", contents=command)
+    return response.text
 
 def processCommand(c):
     if "open google" in c.lower():
@@ -40,7 +48,11 @@ def processCommand(c):
             for idx, article in enumerate(articles, 1):
                 speak(article['title'])
 
-
+    else:
+        #Let gemini handle the request!
+        speak("Let me think...")
+        output = aiProcess(c)
+        speak(output)
 
 
 if __name__ == "__main__":
