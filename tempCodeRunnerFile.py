@@ -9,14 +9,14 @@ from google import genai
 
 recognizer = sr.Recognizer()
 engine = pyttsx3.init()
-newsapi = "a62e6d323b0f4708abfcb67798c89a79"
+newsapi = "YOUR API KEY"
 
 def speak(text):
     engine.say(text)
     engine.runAndWait()
 
 def aiProcess(command):
-    client = genai.Client(api_key="AIzaSyAnXX_6HHbgS8DLqDyPjCpuMZGq0ww6J2M")
+    client = genai.Client(api_key="YOUR API KEY")
     response = client.models.generate_content(
     model="gemini-2.5-flash", contents=command)
     return response.text
